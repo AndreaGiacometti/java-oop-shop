@@ -2,6 +2,9 @@ package org.lessons.java.shop;
 
 import java.util.Random;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Prodotto {
 	
 //	Un prodotto è caratterizzato da: - codice (numero intero) - nome - descrizione - prezzo - iva
@@ -26,22 +29,22 @@ public class Prodotto {
 	
 //	GETTER CODICE
 	public long getCodice() {
-		return codice;
+		return this.codice;
 	}
 	
 
 //	GETTER E SETTER DI NOME
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-//	GETTER E SETTER DI descrizione
+//	GETTER E SETTER DI DESCRIZIONE
 	public String getDescrizione() {
-		return descrizione;
+		return this.descrizione;
 	}
 
 	public void setDescrizione(String descrizione) {
@@ -50,7 +53,7 @@ public class Prodotto {
 
 //	GETTER E SETTER DI PREZZO
 	public double getPrezzo() {
-		return prezzo;
+		return this.prezzo;
 	}
 
 	public void setPrezzo(double prezzo) {
@@ -59,27 +62,27 @@ public class Prodotto {
 
 //	GETTER E SETTER DI IVA
 	public double getIva() {
-		return iva;
+		return this.iva;
 	}
 
 	public void setIva(double iva) {
 		this.iva = iva;
 	}
 	
-//	- alla creazione di un nuovo prodotto il codice sia valorizzato con un numero random 
-//		con un metodo creaNuovoProdotto da usare all'interno del main mi verrà restituito un prodotto con codice random:
+	private double calcoloIva() {
+		return this.prezzo + (this.prezzo * this.iva);
+	}
 	
-//	Il prodotto potrebbe essere creato chiedendo all'utente il nome di un prodotto che si vuole creare.
+	public double getPrezzoIvato() {
+		BigDecimal bigDecimal = BigDecimal.valueOf(calcoloIva());
+	    BigDecimal rounded = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+		return rounded.doubleValue();
+	}
 	
+	public String nomeProdotto() {
+		return this.nome + " - " + this.descrizione;
+	}
 	
-//	- il codice prodotto sia accessibile solo in lettura
-//		per fare questo dovrò usare il metodo getter
-//	- gli altri attributi siano accessibili sia in lettura che in scrittura
-//		in questo caso dovrò invece usare un metodo setter
-//	- il prodotto esponga un metodo per avere il prezzo base
-		
-//	- il prodotto esponga un metodo per avere il prezzo comprensivo di iva 
-//	- il prodotto esponga un metodo per avere il nome esteso, ottenuto concatenando codice-nome 
-//	Nello stesso package aggiungete una classe Main con metodo main nella quale testate tutte le funzionalità della classe Prodotto.
-}
+}	
+
 
